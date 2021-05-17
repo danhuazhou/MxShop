@@ -30,6 +30,9 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+# 替换系统自带User model
+AUTH_USER_MODEL = 'users.UserProfile'
+
 # Application definition
 
 INSTALLED_APPS = [
