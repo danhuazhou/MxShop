@@ -1,4 +1,3 @@
-from .serializers import GoodsSerializer
 from rest_framework.views import APIView
 from rest_framework import mixins
 from rest_framework import generics
@@ -7,8 +6,9 @@ from rest_framework.pagination import PageNumberPagination
 from rest_framework import viewsets
 from rest_framework import filters
 from django_filters.rest_framework import DjangoFilterBackend
-from .models import Goods
+from .models import Goods, GoodsCategory
 from .filters import GoodsFilter
+from .serializers import GoodsSerializer, CategorySerializer
 
 
 # Create your views here.
@@ -42,23 +42,25 @@ class GoodsListViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
     """
     List all goods ,GoodsListView  分页搜索过滤排序
     """
-
-    serializer_class = GoodsSerializer
-    # REST_FRAMEWORK配置，setting中可不用配置了
-    pagination_class = StandardResultsSetPagination
-
     queryset = Goods.objects.all()
-    # filter_backends = (DjangoFilterBackend,)
+    serializer_class = GoodsSerializer
+    pagination_class = StandardResultsSetPagination
     # 使用drf自带SearchFilter
     filter_backends = (DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter)
-
     filter_class = GoodsFilter  # 使用自定义过滤类
     search_fields = ('^name', '=goods_brief', 'goods_desc')
     ordering_fields = ('sold_num', 'add_time')
-    # filter_backends替代
-    # def get_queryset(self):
-    #     queryset = Goods.objects.all()
-    #     price_min = self.request.query_params.get("price_min", 0)
-    #     if price_min:
-    #         queryset = Goods.objects.filter(shop_price__gt=int(price_min))
-    #     return queryset
+
+
+class CategoryViewSet(mixins.ListModelMixin, mixins.RetrieveModelMixin, viewsets.GenericViewSet):
+    """
+    List:
+         商品分类列表
+    """
+    # queryset = GoodsCategory.objects.all()
+    queryset = GoodsCategory.objects.filter(category_type=1)  # 第一类标签
+    serializer_class = CategorySerializer
+
+    class Meta:
+        model = Goods
+        fields = "__all__"

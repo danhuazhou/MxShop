@@ -18,7 +18,7 @@ from django.urls import path
 from django.conf.urls import url, include
 from MxShop.settings import MEDIA_ROOT
 from django.views.static import serve
-from goods.views import GoodsListViewSet
+from goods.views import GoodsListViewSet, CategoryViewSet
 from rest_framework.documentation import include_docs_urls
 from rest_framework.routers import DefaultRouter
 import xadmin
@@ -28,6 +28,8 @@ router = DefaultRouter()
 # goods的url
 router.register(r'goods', GoodsListViewSet, basename='goods')
 
+# category url
+router.register(r'categorys', CategoryViewSet, basename="categorys")
 # 绑定 被router.register替代
 # good_list = GoodsListViewSet.as_view({
 #     'get': 'list',
