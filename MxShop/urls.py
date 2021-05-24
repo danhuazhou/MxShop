@@ -26,7 +26,7 @@ import xadmin
 router = DefaultRouter()
 
 # goods的url
-router.register(r'goods', GoodsListViewSet)
+router.register(r'goods', GoodsListViewSet, basename='goods')
 
 # 绑定 被router.register替代
 # good_list = GoodsListViewSet.as_view({

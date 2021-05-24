@@ -5,7 +5,9 @@ from rest_framework import generics
 from rest_framework.response import Response
 from rest_framework.pagination import PageNumberPagination
 from rest_framework import viewsets
+from django_filters.rest_framework import DjangoFilterBackend
 from .models import Goods
+from .filters import GoodsFilter
 
 
 # Create your views here.
@@ -39,7 +41,20 @@ class GoodsListViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
     """
     List all goods ,GoodsListView
     """
-    queryset = Goods.objects.all()
+
     serializer_class = GoodsSerializer
     # REST_FRAMEWORK配置，setting中可不用配置了
     pagination_class = StandardResultsSetPagination
+
+    queryset = Goods.objects.all()
+    filter_backends = (DjangoFilterBackend,)
+    # filter_fields = ('name', 'shop_price')
+    filter_class = GoodsFilter  # 使用自定义过滤类
+
+    # filter_backends替代
+    # def get_queryset(self):
+    #     queryset = Goods.objects.all()
+    #     price_min = self.request.query_params.get("price_min", 0)
+    #     if price_min:
+    #         queryset = Goods.objects.filter(shop_price__gt=int(price_min))
+    #     return queryset
