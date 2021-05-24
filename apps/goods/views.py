@@ -4,6 +4,7 @@ from rest_framework import mixins
 from rest_framework import generics
 from rest_framework.response import Response
 from rest_framework.pagination import PageNumberPagination
+from rest_framework import viewsets
 from .models import Goods
 
 
@@ -34,7 +35,7 @@ class StandardResultsSetPagination(PageNumberPagination):
     max_page_size = 100
 
 
-class GoodsListView(generics.ListAPIView):
+class GoodsListViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
     """
     List all goods ,GoodsListView
     """

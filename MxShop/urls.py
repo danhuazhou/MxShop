@@ -18,15 +18,27 @@ from django.urls import path
 from django.conf.urls import url, include
 from MxShop.settings import MEDIA_ROOT
 from django.views.static import serve
-from goods.views import GoodsListView
+from goods.views import GoodsListViewSet
 from rest_framework.documentation import include_docs_urls
+from rest_framework.routers import DefaultRouter
 import xadmin
+
+router = DefaultRouter()
+
+# goods的url
+router.register(r'goods', GoodsListViewSet)
+
+# 绑定 被router.register替代
+# good_list = GoodsListViewSet.as_view({
+#     'get': 'list',
+# })
 
 urlpatterns = [
     # url(r'^xadmin/', xadmin.site.urls),
     url(r'^media/(?P<path>.*$)', serve, {"document_root": MEDIA_ROOT}),
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     url(r'^media/(?P<path>.*)$', serve, {"document_root": MEDIA_ROOT}),
-    url(r'goods/$', GoodsListView.as_view(), name='good-list'),
+    # url(r'goods/$', good_list, name='good-list'),
+    url(r'^', include(router.urls)),
     url(r'docs/', include_docs_urls(title="mxshop")),
 ]
