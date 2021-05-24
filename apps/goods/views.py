@@ -5,6 +5,7 @@ from rest_framework import generics
 from rest_framework.response import Response
 from rest_framework.pagination import PageNumberPagination
 from rest_framework import viewsets
+from rest_framework import filters
 from django_filters.rest_framework import DjangoFilterBackend
 from .models import Goods
 from .filters import GoodsFilter
@@ -39,7 +40,7 @@ class StandardResultsSetPagination(PageNumberPagination):
 
 class GoodsListViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
     """
-    List all goods ,GoodsListView
+    List all goods ,GoodsListView  分页搜索过滤排序
     """
 
     serializer_class = GoodsSerializer
@@ -47,10 +48,13 @@ class GoodsListViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
     pagination_class = StandardResultsSetPagination
 
     queryset = Goods.objects.all()
-    filter_backends = (DjangoFilterBackend,)
-    # filter_fields = ('name', 'shop_price')
-    filter_class = GoodsFilter  # 使用自定义过滤类
+    # filter_backends = (DjangoFilterBackend,)
+    # 使用drf自带SearchFilter
+    filter_backends = (DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter)
 
+    filter_class = GoodsFilter  # 使用自定义过滤类
+    search_fields = ('^name', '=goods_brief', 'goods_desc')
+    ordering_fields = ('sold_num', 'add_time')
     # filter_backends替代
     # def get_queryset(self):
     #     queryset = Goods.objects.all()
