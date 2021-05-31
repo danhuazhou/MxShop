@@ -9,11 +9,16 @@ class GoodsFilter(django_filters.rest_framework.FilterSet):
     商品的过滤类
     """
     # django2.x 使用field_name替代name
-    price_min = django_filters.NumberFilter(field_name='shop_price', help_text="最低价格", lookup_expr='gte')
-    price_max = django_filters.NumberFilter(field_name='shop_price', lookup_expr='lte')
+    pricemin = django_filters.NumberFilter(field_name='shop_price', help_text="最低价格", lookup_expr='gte')
+    pricemax = django_filters.NumberFilter(field_name='shop_price', lookup_expr='lte')
+    top_category = django_filters.NumberFilter(method='top_category_filter')
+
     # icontains忽略大小写 contain不忽略大小写
-    name = django_filters.CharFilter(field_name='name', lookup_expr='icontains')
+    # name = django_filters.CharFilter(field_name='name', lookup_expr='icontains')
+    def top_category_filter(self, queryset, name, value):
+        return queryset.filter(Q(category_id=value) | Q(category__parent_category_id=value) | Q(
+            category__parent_category__parent_category_id=value))
 
     class Meta:
         model = Goods
-        fields = ['price_min', 'price_max', 'name']  # 为空好像也可以实现过滤
+        fields = ['pricemin', 'pricemax', 'name']  # 为空好像也可以实现过滤

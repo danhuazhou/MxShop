@@ -21,6 +21,7 @@ from django.views.static import serve
 from goods.views import GoodsListViewSet, CategoryViewSet
 from rest_framework.documentation import include_docs_urls
 from rest_framework.routers import DefaultRouter
+from rest_framework.authtoken import views
 import xadmin
 
 router = DefaultRouter()
@@ -43,4 +44,5 @@ urlpatterns = [
     # url(r'goods/$', good_list, name='good-list'),
     url(r'^', include(router.urls)),
     url(r'docs/', include_docs_urls(title="mxshop")),
+    url(r'api-token-auth/', views.obtain_auth_token),
 ]
