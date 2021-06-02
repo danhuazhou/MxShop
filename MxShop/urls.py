@@ -22,6 +22,7 @@ from goods.views import GoodsListViewSet, CategoryViewSet
 from rest_framework.documentation import include_docs_urls
 from rest_framework.routers import DefaultRouter
 from rest_framework.authtoken import views
+from rest_framework_jwt.views import obtain_jwt_token
 import xadmin
 
 router = DefaultRouter()
@@ -44,5 +45,9 @@ urlpatterns = [
     # url(r'goods/$', good_list, name='good-list'),
     url(r'^', include(router.urls)),
     url(r'docs/', include_docs_urls(title="mxshop")),
-    url(r'api-token-auth/', views.obtain_auth_token),
+
+    # drf自带认证模式
+    url(r'^api-token-auth/', views.obtain_auth_token),
+    # jwt认证接口
+    url(r'^login/', obtain_jwt_token),
 ]

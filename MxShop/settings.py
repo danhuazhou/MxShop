@@ -130,6 +130,10 @@ USE_TZ = False  # True使用utc时间 false使用本地时间
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
+AUTHENTICATION_BACKENDS = (
+    'users.views.CustomBackend',
+)
+
 STATIC_URL = '/static/'
 
 # Default primary key field type
@@ -146,6 +150,7 @@ REST_FRAMEWORK = {
     # 当前版本DEFAULT_PAGINATION_CLASS默认为None，不设置PAGE_SIZE不生效
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
     'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
         'rest_framework.authentication.BasicAuthentication',
         'rest_framework.authentication.SessionAuthentication',
         # 'rest_framework.authentication.TokenAuthentication',# 可在view中配置
@@ -158,4 +163,11 @@ REST_FRAMEWORK = {
     #     'anon': '2/minute',
     #     'user': '3/minute'
     # }
+}
+
+import datetime
+
+JWT_AUTH = {
+    'JWT_EXPIRATION_DELTA': datetime.timedelta(days=7),
+    'JWT_AUTH_HEADER_PREFIX': 'JWT',
 }
