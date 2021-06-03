@@ -132,6 +132,7 @@ USE_TZ = False  # True使用utc时间 false使用本地时间
 
 AUTHENTICATION_BACKENDS = (
     'users.views.CustomBackend',
+    # 'django.contrib.auth.backends.ModelBackend',
 )
 
 STATIC_URL = '/static/'
@@ -150,9 +151,9 @@ REST_FRAMEWORK = {
     # 当前版本DEFAULT_PAGINATION_CLASS默认为None，不设置PAGE_SIZE不生效
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
     'DEFAULT_AUTHENTICATION_CLASSES': (
-        'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
         'rest_framework.authentication.BasicAuthentication',
         'rest_framework.authentication.SessionAuthentication',
+        'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
         # 'rest_framework.authentication.TokenAuthentication',# 可在view中配置
     ),
     # 'DEFAULT_THROTTLE_CLASSES': (
@@ -171,3 +172,9 @@ JWT_AUTH = {
     'JWT_EXPIRATION_DELTA': datetime.timedelta(days=7),
     'JWT_AUTH_HEADER_PREFIX': 'JWT',
 }
+
+# 手机号码正则表达式
+REGEX_MOBILE = "^1[358]\d{9}$|^147\d{8}$|^176\d{8}$"
+
+# 云片网设置
+APIKEY = ""
