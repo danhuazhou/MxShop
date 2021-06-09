@@ -5,7 +5,7 @@ from django.db.models import Q
 from django.contrib.auth.backends import ModelBackend
 from django.contrib.auth import get_user_model
 from rest_framework.mixins import CreateModelMixin
-from .serializers import SmsSerializer
+from .serializers import SmsSerializer, UserReSerializer
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework import viewsets
@@ -34,7 +34,7 @@ class CustomBackend(ModelBackend):
             return None
 
 
-class SmsCodeViewset(CreateModelMixin, viewsets.GenericViewSet):
+class SmsCodeViewSet(CreateModelMixin, viewsets.GenericViewSet):
     """
     发送短信验证码
     """
@@ -74,3 +74,10 @@ class SmsCodeViewset(CreateModelMixin, viewsets.GenericViewSet):
             return Response({
                 "mobile": mobile
             }, status=status.HTTP_201_CREATED)
+
+
+class UserVieSet(CreateModelMixin, viewsets.GenericViewSet):
+    """
+    用户
+    """
+    serializer_class = UserReSerializer
