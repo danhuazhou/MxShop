@@ -21,4 +21,4 @@ class GoodsFilter(django_filters.rest_framework.FilterSet):
 
     class Meta:
         model = Goods
-        fields = ['pricemin', 'pricemax', 'name']  # 为空好像也可以实现过滤
+        fields = ['pricemin', 'pricemax', 'name', 'is_hot']  # 为空好像也可以实现过滤
