@@ -23,7 +23,7 @@ from rest_framework.documentation import include_docs_urls
 from rest_framework.routers import DefaultRouter
 from rest_framework.authtoken import views
 from rest_framework_jwt.views import obtain_jwt_token
-from users.views import SmsCodeViewSet, UserVieSet
+from users.views import SmsCodeViewSet, UserViewSet
 import xadmin
 
 router = DefaultRouter()
@@ -35,7 +35,7 @@ router.register(r'goods', GoodsListViewSet, basename='goods')
 router.register(r'categorys', CategoryViewSet, basename="categorys")
 
 router.register(r'codes', SmsCodeViewSet, basename="codes")
-router.register(r'users', UserVieSet, basename="users")
+router.register(r'users', UserViewSet, basename="users")
 
 # 绑定 被router.register替代
 # good_list = GoodsListViewSet.as_view({

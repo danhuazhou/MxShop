@@ -38,7 +38,7 @@ class SmsSerializer(serializers.Serializer):
         return mobile
 
 
-class UserReSerializer(serializers.ModelSerializer):
+class UserRegSerializer(serializers.ModelSerializer):
     code = serializers.CharField(required=True, max_length=4, min_length=4,
                                  error_messages={
                                      "blank": "请输入验证码blank",
