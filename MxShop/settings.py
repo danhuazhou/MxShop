@@ -152,6 +152,7 @@ REST_FRAMEWORK = {
     'PAGE_SIZE': 10,
     # 当前版本DEFAULT_PAGINATION_CLASS默认为None，不设置PAGE_SIZE不生效
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'DEFAULT_SCHEMA_CLASS': 'rest_framework.schemas.coreapi.AutoSchema',
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework.authentication.BasicAuthentication',
         'rest_framework.authentication.SessionAuthentication',

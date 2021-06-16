@@ -56,8 +56,10 @@ class GoodsListViewSet(mixins.ListModelMixin, mixins.RetrieveModelMixin, viewset
 
 class CategoryViewSet(mixins.ListModelMixin, mixins.RetrieveModelMixin, viewsets.GenericViewSet):
     """
-    List:
+    list:
          商品分类列表
+    retrieve:
+        获取商品分类详情
     """
     # queryset = GoodsCategory.objects.all()
     queryset = GoodsCategory.objects.filter(category_type=1)  # 第一类标签

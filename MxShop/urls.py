@@ -36,6 +36,7 @@ router.register(r'goods', GoodsListViewSet, basename='goods')
 router.register(r'categorys', CategoryViewSet, basename="categorys")
 
 router.register(r'codes', SmsCodeViewSet, basename="codes")
+
 router.register(r'users', UserViewSet, basename="users")
 
 router.register('userfavs', UserFavViewSet, basename='userfavs')

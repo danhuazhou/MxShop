@@ -12,7 +12,8 @@ from .serializers import UserFavSerializer
 
 # Create your views here.
 
-class UserFavViewSet(mixins.CreateModelMixin, mixins.ListModelMixin, mixins.DestroyModelMixin, viewsets.GenericViewSet):
+class UserFavViewSet(mixins.CreateModelMixin, mixins.ListModelMixin, mixins.RetrieveModelMixin,
+                     mixins.DestroyModelMixin, viewsets.GenericViewSet):
     """
     用户收藏功能
     """
@@ -21,6 +22,8 @@ class UserFavViewSet(mixins.CreateModelMixin, mixins.ListModelMixin, mixins.Dest
     permission_classes = (IsAuthenticated, IsOwnerOrReadOnly)
     serializer_class = UserFavSerializer
     authentication_classes = (JSONWebTokenAuthentication, SessionAuthentication)
+    # 查询自带 默认是user_id userfavs/user_id/
+    lookup_field = "goods_id"
 
     def get_queryset(self):
         return UserFav.objects.filter(user=self.request.user)
