@@ -43,6 +43,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'users.apps.UsersConfig',
     'rest_framework',
+    # 'xadmin',
+    'crispy_forms',
     'django_filters',
     'DjangoUeditor',
     'corsheaders',
