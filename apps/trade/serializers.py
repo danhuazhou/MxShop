@@ -30,3 +30,8 @@ class ShopCartSerializer(serializers.Serializer):
             existed = ShoppingCart.objects.create(**validated_data)
 
         return existed
+
+    def update(self, instance, validated_data):
+        instance.nums = validated_data["nums"]
+        instance.save()
+        return instance
