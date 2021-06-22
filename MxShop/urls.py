@@ -25,6 +25,7 @@ from rest_framework.authtoken import views
 from rest_framework_jwt.views import obtain_jwt_token
 from users.views import SmsCodeViewSet, UserViewSet
 from user_operation.views import UserFavViewSet, LeavingMessageViewSet, AddressViewset
+from trade.views import ShoppingCartViewSet
 import xadmin
 
 router = DefaultRouter()
@@ -44,6 +45,8 @@ router.register(r'userfavs', UserFavViewSet, basename='userfavs')
 router.register(r'messages', LeavingMessageViewSet, basename='messages')
 
 router.register(r'address', AddressViewset, basename='address')
+
+router.register(r'shopcarts', ShoppingCartViewSet, basename='shopcarts')
 # 绑定 被router.register替代
 # good_list = GoodsListViewSet.as_view({
 #     'get': 'list',
